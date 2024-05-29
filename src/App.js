@@ -1,25 +1,30 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './Navbar';
+import Dashboard from './Dashboard';
+import Timesheet from './Timesheet';
+import TimesheetHistory from './TimesheetHistory';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [days, setDays] = useState([]);
+    
+    const addDay = (day) => {
+        setDays([...days, day]);
+    };
+
+    return (
+        <Router>
+            <div className="App">
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Dashboard />} />
+                    <Route path="/timesheet" element={<Timesheet addDay={addDay} days={days} />} />
+                    <Route path="/history" element={<TimesheetHistory days={days} />} />
+                </Routes>
+            </div>
+        </Router>
+    );
 }
 
 export default App;
