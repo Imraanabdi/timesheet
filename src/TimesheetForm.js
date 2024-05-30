@@ -48,7 +48,7 @@ const Button = styled.button`
   }
 `;
 
-const DayEntry = ({ addDay }) => {
+const TimesheetForm = ({ addEntry }) => {
     const [employeeName, setEmployeeName] = useState('');
     const [projectName, setProjectName] = useState('');
     const [activityDescription, setActivityDescription] = useState('');
@@ -59,18 +59,21 @@ const DayEntry = ({ addDay }) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (workHours < breakHours) {
+        const workHoursNum = parseFloat(workHours);
+        const breakHoursNum = parseFloat(breakHours);
+
+        if (workHoursNum < breakHoursNum) {
             setError('Break hours cannot exceed work hours');
             return;
         }
-        if (workHours < 0 || breakHours < 0) {
+        if (workHoursNum < 0 || breakHoursNum < 0) {
             setError('Hours cannot be negative');
             return;
         }
         setError('');
-        const workedHours = workHours - breakHours;
-        const workPercentage = (workedHours / workHours) * 100;
-        addDay({ employeeName, projectName, activityDescription, workHours, breakHours, workedHours, workPercentage, date });
+        const workedHours = workHoursNum - breakHoursNum;
+        const workPercentage = (workedHours / workHoursNum) * 100;
+        addEntry({ employeeName, projectName, activityDescription, workHours: workHoursNum, breakHours: breakHoursNum, workedHours, workPercentage, date });
         setEmployeeName('');
         setProjectName('');
         setActivityDescription('');
@@ -134,9 +137,9 @@ const DayEntry = ({ addDay }) => {
                     </TableRow>
                 </tbody>
             </Table>
-            <Button type="submit">Add Day</Button>
+            <Button type="submit">Add Entry</Button>
         </Form>
     );
 };
 
-export default DayEntry;
+export default TimesheetForm;

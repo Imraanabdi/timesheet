@@ -1,30 +1,29 @@
 import React, { useState } from 'react';
-import './App.css';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Navbar from './Navbar';
-import Dashboard from './Dashboard';
-import Timesheet from './Timesheet';
+import TimesheetForm from './TimesheetForm';
 import TimesheetHistory from './TimesheetHistory';
+import Navbar from './Navbar';
 
-function App() {
-    const [days, setDays] = useState([]);
-    
-    const addDay = (day) => {
-        setDays([...days, day]);
+const App = () => {
+    const [timesheetData, setTimesheetData] = useState([]);
+
+    const addEntry = (entry) => {
+        setTimesheetData([...timesheetData, entry]);
     };
 
     return (
-        <Router>
-            <div className="App">
-                <Navbar />
-                <Routes>
-                    <Route path="/" element={<Dashboard />} />
-                    <Route path="/timesheet" element={<Timesheet addDay={addDay} days={days} />} />
-                    <Route path="/history" element={<TimesheetHistory days={days} />} />
-                </Routes>
+        <div>
+            <Navbar />
+            <div id="home">
+                <h1>Timesheet Application</h1>
             </div>
-        </Router>
+            <div id="add-entry">
+                <TimesheetForm addEntry={addEntry} />
+            </div>
+            <div id="history">
+                <TimesheetHistory data={timesheetData} />
+            </div>
+        </div>
     );
-}
+};
 
 export default App;

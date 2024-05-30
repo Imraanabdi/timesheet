@@ -19,10 +19,6 @@ const Label = styled.label`
 `;
 
 const Summary = ({ data }) => {
-    if (!data || data.length === 0) {
-        return <div>No data available</div>;
-    }
-
     return (
         <div>
             <h2>Summary</h2>
@@ -35,6 +31,7 @@ const Summary = ({ data }) => {
                         <TableCell><Label>Work Hours</Label></TableCell>
                         <TableCell><Label>Break Hours</Label></TableCell>
                         <TableCell><Label>Worked Hours</Label></TableCell>
+                        <TableCell><Label>Worked Percentage</Label></TableCell>
                         <TableCell><Label>Date</Label></TableCell>
                     </TableRow>
                     {data.map((entry, index) => (
@@ -45,6 +42,7 @@ const Summary = ({ data }) => {
                             <TableCell>{entry.workHours}</TableCell>
                             <TableCell>{entry.breakHours}</TableCell>
                             <TableCell>{entry.workedHours}</TableCell>
+                            <TableCell>{entry.workPercentage.toFixed(2)}%</TableCell>
                             <TableCell>{entry.date.toLocaleDateString()}</TableCell>
                         </TableRow>
                     ))}

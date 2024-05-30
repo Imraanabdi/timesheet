@@ -1,22 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+
+const Nav = styled.nav`
+  background: #343a40;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const NavBrand = styled.div`
+  color: #fff;
+  font-size: 1.5em;
+`;
+
+const NavLinks = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const NavLink = styled.a`
+  color: #fff;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const Navbar = () => {
-    return (
-        <nav>
-            <ul>
-                <li>
-                    <Link to="/">Dashboard</Link>
-                </li>
-                <li>
-                    <Link to="/timesheet">New Timesheet</Link>
-                </li>
-                <li>
-                    <Link to="/history">Timesheet History</Link>
-                </li>
-            </ul>
-        </nav>
-    );
+  return (
+    <Nav>
+      <NavBrand>Timesheet App</NavBrand>
+      <NavLinks>
+        <NavLink href="#home">Home</NavLink>
+        <NavLink href="#add-entry">Add Entry</NavLink>
+        <NavLink href="#history">History</NavLink>
+      </NavLinks>
+    </Nav>
+  );
 };
 
 export default Navbar;
