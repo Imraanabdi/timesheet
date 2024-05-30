@@ -16,8 +16,7 @@ const Table = styled.table`
   border-collapse: collapse;
 `;
 
-const TableRow = styled.tr`
-`;
+const TableRow = styled.tr``;
 
 const TableCell = styled.td`
   padding: 10px;
@@ -37,6 +36,14 @@ const Input = styled.input`
   border: 1px solid #ccc;
 `;
 
+const Select = styled.select`
+  padding: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+`;
+
 const Button = styled.button`
   background: #28a745;
   color: #fff;
@@ -50,93 +57,106 @@ const Button = styled.button`
 `;
 
 const DayEntry = ({ addDay }) => {
-    const [employeeName, setEmployeeName] = useState('');
-    const [projectName, setProjectName] = useState('');
-    const [activityDescription, setActivityDescription] = useState('');
-    const [workHours, setWorkHours] = useState('');
-    const [breakHours, setBreakHours] = useState('');
-    const [date, setDate] = useState(new Date());
-    const [error, setError] = useState('');
+  const [employeeName, setEmployeeName] = useState('');
+  const [projectName, setProjectName] = useState('');
+  const [activityDescription, setActivityDescription] = useState('');
+  const [workHours, setWorkHours] = useState('');
+  const [breakHours, setBreakHours] = useState('');
+  const [date, setDate] = useState(new Date());
+  const [error, setError] = useState('');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        if (workHours < breakHours) {
-            setError('Break hours cannot exceed work hours');
-            return;
-        }
-        if (workHours < 0 || breakHours < 0) {
-            setError('Hours cannot be negative');
-            return;
-        }
-        setError('');
-        const workedHours = workHours - breakHours;
-        addDay({ employeeName, projectName, activityDescription, workHours, breakHours, workedHours, date });
-        setEmployeeName('');
-        setProjectName('');
-        setActivityDescription('');
-        setWorkHours('');
-        setBreakHours('');
-        setDate(new Date());
-    };
+  const projectOptions = [
+    'Project A',
+    'Project B',
+    'Project C',
+    'Project D',
+    'Project E',
+  ];
 
-    return (
-        <Form onSubmit={handleSubmit}>
-            {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
-            <Table>
-                <tbody>
-                    <TableRow>
-                        <TableCell>
-                            <Label>Employee Name:</Label>
-                            <Input 
-                                type="text" 
-                                value={employeeName} 
-                                onChange={(e) => setEmployeeName(e.target.value)} 
-                            />
-                        </TableCell>
-                        <TableCell>
-                            <Label>Project Name:</Label>
-                            <Input 
-                                type="text" 
-                                value={projectName} 
-                                onChange={(e) => setProjectName(e.target.value)} 
-                            />
-                        </TableCell>
-                        <TableCell>
-                            <Label>Activity Description:</Label>
-                            <Input 
-                                type="text" 
-                                value={activityDescription} 
-                                onChange={(e) => setActivityDescription(e.target.value)} 
-                            />
-                        </TableCell>
-                    </TableRow>
-                    <TableRow>
-                        <TableCell>
-                            <Label>Work Hours:</Label>
-                            <Input 
-                                type="number" 
-                                value={workHours} 
-                                onChange={(e) => setWorkHours(e.target.value)} 
-                            />
-                        </TableCell>
-                        <TableCell>
-                            <Label>Break Hours:</Label>
-                            <Input 
-                                type="number" 
-                                value={breakHours} 
-                                onChange={(e) => setBreakHours(e.target.value)} 
-                            />
-                        </TableCell>
-                        <TableCell>
-                            <Label>Date:</Label>
-                            <DatePicker selected={date} onChange={date => setDate(date)} />
-                        </TableCell>
-                    </TableRow>
-                </tbody>
-            </Table>
-            <Button type="submit">Add Day</Button>
-        </Form>
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (parseInt(workHours) < parseInt(breakHours)) {
+      setError('Break hours cannot exceed work hours');
+      return;
+    }
+    if (parseInt(workHours) < 0 || parseInt(breakHours) < 0) {
+      setError('Hours cannot be negative');
+      return;
+    }
+    setError('');
+    const workedHours = parseInt(workHours) - parseInt(breakHours);
+    const workPercentage = (workedHours / parseInt(workHours)) * 100;
+    addDay({ employeeName, projectName, activityDescription, workHours, breakHours, workedHours, workPercentage, date });
+    setEmployeeName('');
+    setProjectName('');
+    setActivityDescription('');
+    setWorkHours('');
+    setBreakHours('');
+    setDate(new Date());
+  };
+
+  return (
+    <Form onSubmit={handleSubmit}>
+      {error && <div style={{ color: 'red', marginBottom: '10px' }}>{error}</div>}
+      <Table>
+        <tbody>
+          <TableRow>
+            <TableCell>
+              <Label>Employee Name:</Label>
+              <Input
+                type="text"
+                value={employeeName}
+                onChange={(e) => setEmployeeName(e.target.value)}
+              />
+            </TableCell>
+            <TableCell>
+              <Label>Project Name:</Label>
+              <Select
+                value={projectName}
+                onChange={(e) => setProjectName(e.target.value)}
+              >
+                <option value="">Select Project</option>
+                {projectOptions.map(option => (
+                  <option key={option} value={option}>{option}</option>
+                ))}
+              </Select>
+            </TableCell>
+            <TableCell>
+              <Label>Activity Description:</Label>
+              <Input
+                type="text"
+                value={activityDescription}
+                onChange={(e) => setActivityDescription(e.target.value)}
+              />
+            </TableCell>
+          </TableRow>
+          <TableRow>
+            <TableCell>
+              <Label>Work Hours:</Label>
+              <Input
+                type="number"
+                value={workHours}
+                onChange={(e) => setWorkHours(e.target.value)}
+              />
+            </TableCell>
+            <TableCell>
+              <Label>Break Hours:</Label>
+              <Input
+                type="number"
+                value={breakHours}
+                onChange={(e) => setBreakHours(e.target.value)}
+              />
+            </TableCell>
+            <TableCell>
+              <Label>Date:</Label>
+              <DatePicker selected={date} onChange={date => setDate(date)} />
+            </TableCell>
+          </TableRow>
+        </tbody>
+      </Table>
+      <Button type="submit">Add Day</Button>
+    </Form>
+  );
 };
 
 export default DayEntry;

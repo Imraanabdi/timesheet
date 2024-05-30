@@ -30,9 +30,9 @@ const NavLink = styled.a`
 const Navbar = () => {
   return (
     <Nav>
-      <NavBrand>Timesheet App</NavBrand>
+      <NavBrand>Timesheet </NavBrand>
       <NavLinks>
-        <NavLink href="#home">Home</NavLink>
+        <NavLink href="#home">Dashboard</NavLink>
         <NavLink href="#add-entry">Add Entry</NavLink>
         <NavLink href="#history">History</NavLink>
       </NavLinks>

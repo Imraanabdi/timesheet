@@ -1,29 +1,86 @@
 import React, { useState } from 'react';
-import TimesheetForm from './TimesheetForm';
-import TimesheetHistory from './TimesheetHistory';
-import Navbar from './Navbar';
+import DayEntry from './DayEntry'; // Adjust the import path as necessary
+import styled from 'styled-components';
+
+const AppContainer = styled.div`
+  margin: 20px;
+`;
+
+const Title = styled.h1`
+  text-align: center;
+  color: #343a40;
+`;
+
+const Subtitle = styled.h2`
+  margin-top: 40px;
+  color: #495057;
+`;
+
+const EntriesTable = styled.table`
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+`;
+
+const TableHead = styled.th`
+  padding: 10px;
+  border: 1px solid #ddd;
+  background-color: #f1f1f1;
+`;
+
+const TableRow = styled.tr`
+  &:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+`;
+
+const TableCell = styled.td`
+  padding: 10px;
+  border: 1px solid #ddd;
+`;
 
 const App = () => {
-    const [timesheetData, setTimesheetData] = useState([]);
+  const [days, setDays] = useState([]);
 
-    const addEntry = (entry) => {
-        setTimesheetData([...timesheetData, entry]);
-    };
+  const addDay = (day) => {
+    setDays([...days, day]);
+  };
 
-    return (
-        <div>
-            <Navbar />
-            <div id="home">
-                <h1>Timesheet Application</h1>
-            </div>
-            <div id="add-entry">
-                <TimesheetForm addEntry={addEntry} />
-            </div>
-            <div id="history">
-                <TimesheetHistory data={timesheetData} />
-            </div>
-        </div>
-    );
+  return (
+    <AppContainer>
+      <Title>Timesheet</Title>
+      <DayEntry addDay={addDay} />
+      <Subtitle>Entries</Subtitle>
+      <EntriesTable>
+        <thead>
+          <TableRow>
+            <TableHead>Employee Name</TableHead>
+            <TableHead>Project Name</TableHead>
+            <TableHead>Activity Description</TableHead>
+            <TableHead>Work Hours</TableHead>
+            <TableHead>Break Hours</TableHead>
+            <TableHead>Worked Hours</TableHead>
+            <TableHead>Work Percentage</TableHead>
+            <TableHead>Date</TableHead>
+          </TableRow>
+        </thead>
+        <tbody>
+          {days.map((day, index) => (
+            <TableRow key={index}>
+              <TableCell>{day.employeeName}</TableCell>
+              <TableCell>{day.projectName}</TableCell>
+              <TableCell>{day.activityDescription}</TableCell>
+              <TableCell>{day.workHours}</TableCell>
+              <TableCell>{day.breakHours}</TableCell>
+              <TableCell>{day.workedHours}</TableCell>
+              <TableCell>{day.workPercentage.toFixed(2)}%</TableCell>
+              <TableCell>{new Date(day.date).toLocaleDateString()}</TableCell>
+            </TableRow>
+          ))}
+        </tbody>
+      </EntriesTable>
+    </AppContainer>
+  );
 };
 
 export default App;
