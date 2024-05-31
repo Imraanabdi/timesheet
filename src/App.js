@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import DayEntry from './DayEntry'; // Adjust the import path as necessary
 import styled from 'styled-components';
+import Navbar from './Navbar'; // Adjust the import path as necessary
 
 const AppContainer = styled.div`
   margin: 20px;
@@ -47,39 +49,87 @@ const App = () => {
   };
 
   return (
-    <AppContainer>
-      <Title>Timesheet</Title>
-      <DayEntry addDay={addDay} />
-      <Subtitle>Entries</Subtitle>
-      <EntriesTable>
-        <thead>
-          <TableRow>
-            <TableHead>Employee Name</TableHead>
-            <TableHead>Project Name</TableHead>
-            <TableHead>Activity Description</TableHead>
-            <TableHead>Work Hours</TableHead>
-            <TableHead>Break Hours</TableHead>
-            <TableHead>Worked Hours</TableHead>
-            <TableHead>Work Percentage</TableHead>
-            <TableHead>Date</TableHead>
-          </TableRow>
-        </thead>
-        <tbody>
-          {days.map((day, index) => (
-            <TableRow key={index}>
-              <TableCell>{day.employeeName}</TableCell>
-              <TableCell>{day.projectName}</TableCell>
-              <TableCell>{day.activityDescription}</TableCell>
-              <TableCell>{day.workHours}</TableCell>
-              <TableCell>{day.breakHours}</TableCell>
-              <TableCell>{day.workedHours}</TableCell>
-              <TableCell>{day.workPercentage.toFixed(2)}%</TableCell>
-              <TableCell>{new Date(day.date).toLocaleDateString()}</TableCell>
-            </TableRow>
-          ))}
-        </tbody>
-      </EntriesTable>
-    </AppContainer>
+    <Router>
+      <Navbar />
+      <AppContainer>
+        <Title>Timesheet</Title>
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <>
+                <DayEntry addDay={addDay} />
+                <Subtitle>Entries</Subtitle>
+                <EntriesTable>
+                  <thead>
+                    <TableRow>
+                      <TableHead>Employee Name</TableHead>
+                      <TableHead>Project Name</TableHead>
+                      <TableHead>Activity Description</TableHead>
+                      <TableHead>Work Hours</TableHead>
+                      <TableHead>Break Hours</TableHead>
+                      <TableHead>Worked Hours</TableHead>
+                      <TableHead>Work Percentage</TableHead>
+                      <TableHead>Date</TableHead>
+                    </TableRow>
+                  </thead>
+                  <tbody>
+                    {days.map((day, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{day.employeeName}</TableCell>
+                        <TableCell>{day.projectName}</TableCell>
+                        <TableCell>{day.activityDescription}</TableCell>
+                        <TableCell>{day.workHours}</TableCell>
+                        <TableCell>{day.breakHours}</TableCell>
+                        <TableCell>{day.workedHours}</TableCell>
+                        <TableCell>{day.workPercentage.toFixed(2)}%</TableCell>
+                        <TableCell>{new Date(day.date).toLocaleDateString()}</TableCell>
+                      </TableRow>
+                    ))}
+                  </tbody>
+                </EntriesTable>
+              </>
+            }
+          />
+          <Route
+            path="/timesheet-history"
+            element={
+              <>
+                <Subtitle>Timesheet History</Subtitle>
+                <EntriesTable>
+                  <thead>
+                    <TableRow>
+                      <TableHead>Employee Name</TableHead>
+                      <TableHead>Project Name</TableHead>
+                      <TableHead>Activity Description</TableHead>
+                      <TableHead>Work Hours</TableHead>
+                      <TableHead>Break Hours</TableHead>
+                      <TableHead>Worked Hours</TableHead>
+                      <TableHead>Work Percentage</TableHead>
+                      <TableHead>Date</TableHead>
+                    </TableRow>
+                  </thead>
+                  <tbody>
+                    {days.map((day, index) => (
+                      <TableRow key={index}>
+                        <TableCell>{day.employeeName}</TableCell>
+                        <TableCell>{day.projectName}</TableCell>
+                        <TableCell>{day.activityDescription}</TableCell>
+                        <TableCell>{day.workHours}</TableCell>
+                        <TableCell>{day.breakHours}</TableCell>
+                        <TableCell>{day.workedHours}</TableCell>
+                        <TableCell>{day.workPercentage.toFixed(2)}%</TableCell>
+                        <TableCell>{new Date(day.date).toLocaleDateString()}</TableCell>
+                      </TableRow>
+                    ))}
+                  </tbody>
+                </EntriesTable>
+              </>
+            }
+          />
+        </Routes>
+      </AppContainer>
+    </Router>
   );
 };
 

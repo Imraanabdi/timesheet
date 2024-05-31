@@ -1,42 +1,53 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Nav = styled.nav`
-  background: #343a40;
-  padding: 10px;
+const NavbarContainer = styled.nav`
+  background: #F0EDCF;
+  padding: 15px 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 `;
 
-const NavBrand = styled.div`
-  color: #fff;
-  font-size: 1.5em;
-`;
-
-const NavLinks = styled.div`
+const NavList = styled.ul`
+  list-style: none;
   display: flex;
-  gap: 20px;
+  margin: 0;
+  padding: 0;
 `;
 
-const NavLink = styled.a`
-  color: #fff;
+const NavItem = styled.li`
+  margin: 0 20px;
+`;
+
+const NavLink = styled(Link)`
+  color: #343a40;
   text-decoration: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  transition: background 0.3s ease, color 0.3s ease;
+
   &:hover {
-    text-decoration: underline;
+    background: #343a40;
+    color: #F0EDCF;
+    text-decoration: none;
   }
 `;
 
 const Navbar = () => {
   return (
-    <Nav>
-      <NavBrand>Timesheet </NavBrand>
-      <NavLinks>
-        <NavLink href="#home">Dashboard</NavLink>
-        <NavLink href="#add-entry">Add Entry</NavLink>
-        <NavLink href="#history">History</NavLink>
-      </NavLinks>
-    </Nav>
+    <NavbarContainer>
+      <NavList>
+        <NavItem>
+          <NavLink to="/">Dashboard</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink to="/timesheet-history">Timesheet History</NavLink>
+        </NavItem>
+      </NavList>
+    </NavbarContainer>
   );
 };
 
