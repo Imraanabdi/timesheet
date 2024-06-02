@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
+import axios from 'axios'; // Import axios
 
 const Form = styled.form`
   background: #f8f9fa;
@@ -73,7 +74,7 @@ const DayEntry = ({ addDay }) => {
     'Project E',
   ];
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (parseInt(workHours) < parseInt(breakHours)) {
       setError('Break hours cannot exceed work hours');
@@ -86,13 +87,27 @@ const DayEntry = ({ addDay }) => {
     setError('');
     const workedHours = parseInt(workHours) - parseInt(breakHours);
     const workPercentage = (workedHours / parseInt(workHours)) * 100;
-    addDay({ employeeName, projectName, activityDescription, workHours, breakHours, workedHours, workPercentage, date });
-    setEmployeeName('');
-    setProjectName('');
-    setActivityDescription('');
-    setWorkHours('');
-    setBreakHours('');
-    setDate(new Date());
+    try {
+      const result = await axios.post('http://localhost:5000/api/day-entries', {
+        employeeName,
+        projectName,
+        activityDescription,
+        workHours,
+        breakHours,
+        workedHours,
+        workPercentage,
+        date
+      });
+      addDay(result.data);
+      setEmployeeName('');
+      setProjectName('');
+      setActivityDescription('');
+      setWorkHours('');
+      setBreakHours('');
+      setDate(new Date());
+    } catch (error) {
+      console.error('Error adding data:', error);
+    }
   };
 
   return (

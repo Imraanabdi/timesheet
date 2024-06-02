@@ -43,7 +43,7 @@ const Summary = ({ data }) => {
                             <TableCell>{entry.breakHours}</TableCell>
                             <TableCell>{entry.workedHours}</TableCell>
                             <TableCell>{entry.workPercentage.toFixed(2)}%</TableCell>
-                            <TableCell>{entry.date.toLocaleDateString()}</TableCell>
+                            <TableCell>{entry.date instanceof Date ? entry.date.toLocaleDateString() : new Date(entry.date).toLocaleDateString()}</TableCell>
                         </TableRow>
                     ))}
                 </tbody>
