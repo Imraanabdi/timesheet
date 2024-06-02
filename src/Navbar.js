@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const NavbarContainer = styled.nav`
-  background: #F0EDCF;
-  padding: 15px 30px;
+  background: linear-gradient(to right, #ff6b6b, #556270); /* Updated gradient colors */
+  padding: 20px 30px; /* Increased padding */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,15 +23,15 @@ const NavItem = styled.li`
 `;
 
 const NavLink = styled(Link)`
-  color: #343a40;
+  color: #fff; /* Changed text color to white */
   text-decoration: none;
-  padding: 10px 15px;
-  border-radius: 4px;
+  padding: 15px 20px; /* Increased padding */
+  border-radius: 6px; /* Slightly rounded corners */
   transition: background 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background: #343a40;
-    color: #F0EDCF;
+    background: #f4d35e; /* Hover background color */
+    color: #000; /* Hover text color */
     text-decoration: none;
   }
 `;

@@ -4,11 +4,11 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
 
 const Form = styled.form`
-  background: #f8f9fa;
+  background: 003285;
   padding: 20px;
   margin: 20px 0;
   border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 20px 0 #202020; /* Added box-shadow */
 `;
 
 const Table = styled.table`
