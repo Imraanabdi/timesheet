@@ -4,11 +4,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
 
 const Form = styled.form`
-  background: 003285;
+  background: #f8f9fa;
   padding: 20px;
   margin: 20px 0;
   border-radius: 8px;
-  box-shadow: 0 0 20px 0 #202020; /* Added box-shadow */
+  box-shadow: 0 0 20px 0 #202020;
+  @media (max-width: 768px) {
+    padding: 10px;
+  }
 `;
 
 const Table = styled.table`
@@ -21,6 +24,11 @@ const TableRow = styled.tr``;
 const TableCell = styled.td`
   padding: 10px;
   border: 1px solid #ddd;
+  @media (max-width: 768px) {
+    display: block;
+    padding: 5px;
+    border: none;
+  }
 `;
 
 const Label = styled.label`
@@ -30,10 +38,13 @@ const Label = styled.label`
 
 const Input = styled.input`
   padding: 8px;
-  width: calc(100% - 16px); /* Subtract padding */
+  width: calc(100% - 16px);
   box-sizing: border-box;
   border-radius: 4px;
   border: 1px solid #ccc;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`
@@ -93,6 +104,8 @@ const DayEntry = ({ addDay }) => {
                                 onChange={(e) => setEmployeeName(e.target.value)} 
                             />
                         </TableCell>
+                    </TableRow>
+                    <TableRow>
                         <TableCell>
                             <Label>Project Name:</Label>
                             <Input 
@@ -101,6 +114,8 @@ const DayEntry = ({ addDay }) => {
                                 onChange={(e) => setProjectName(e.target.value)} 
                             />
                         </TableCell>
+                    </TableRow>
+                    <TableRow>
                         <TableCell>
                             <Label>Activity Description:</Label>
                             <Input 
@@ -119,6 +134,8 @@ const DayEntry = ({ addDay }) => {
                                 onChange={(e) => setWorkHours(e.target.value)} 
                             />
                         </TableCell>
+                    </TableRow>
+                    <TableRow>
                         <TableCell>
                             <Label>Break Hours:</Label>
                             <Input 
@@ -127,6 +144,8 @@ const DayEntry = ({ addDay }) => {
                                 onChange={(e) => setBreakHours(e.target.value)} 
                             />
                         </TableCell>
+                    </TableRow>
+                    <TableRow>
                         <TableCell>
                             <Label>Date:</Label>
                             <DatePicker selected={date} onChange={date => setDate(date)} />
